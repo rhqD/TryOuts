@@ -64,6 +64,7 @@ export default class SignInScreen extends Component{
         <TouchableOpacity
           style={{ height: 40, width: '100%', alignItems: 'center', justifyContent: 'center', borderRadius: 20, marginTop: 40, backgroundColor: '#5dc2d6' }}
           activeOpacity={0.6}
+          onPress={this.handleLogin}
         >
           <Text style={{color: 'white', fontSize: 20}}>Log In</Text>
         </TouchableOpacity>
