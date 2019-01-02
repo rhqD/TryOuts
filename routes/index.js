@@ -1,9 +1,10 @@
+import React from 'react';
 import { createSwitchNavigator, createStackNavigator, createAppContainer } from "react-navigation";
 import AuthLoadingScreen from './AuthLoadingScreen';
 import HomeScreen from './HomeScreen';
 import SignInScreen from './SignInScreen';
+import {Image} from 'react-native';
 
-const AppStack = createStackNavigator({ Home: HomeScreen});
 const AuthStack = createStackNavigator({ SignIn: SignInScreen },
 {
   defaultNavigationOptions: {
@@ -16,7 +17,7 @@ const AuthStack = createStackNavigator({ SignIn: SignInScreen },
 export default createAppContainer(createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
-    App: AppStack,
+    App: HomeScreen,
     Auth: AuthStack
   },
   {

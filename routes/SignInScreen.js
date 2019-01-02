@@ -3,6 +3,7 @@ import autoBind from 'react-autobind';
 import {Animated, View, Text, Image, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
 import {Video} from 'expo';
 import bkVideo from '../assets/bk3.mp4';
+import {login} from '../actions/login';
 
 export default class SignInScreen extends Component{
   constructor(props){
@@ -16,10 +17,17 @@ export default class SignInScreen extends Component{
   }
 
   handleLogin(){
-    setTimeout(() => {
-      console.log('navigate');
+    const {
+      userName,
+      password,
+      account
+    } = this.state;
+    login(account, userName, password).then(() => {
+      debugger
       this.props.navigation.navigate('Home');
-    }, 1000)
+    }).catch((error) => {
+      debugger
+    });
   }
 
   render(){

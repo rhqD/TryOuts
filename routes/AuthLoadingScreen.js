@@ -1,13 +1,17 @@
 import React, {Component} from 'react';
 import {View, Text} from 'react-native';
+import { AsyncStorage } from "react-native"
 
 export default class AuthLoadingScreen extends Component{
 
   componentDidMount(){
-    setTimeout(() => {
-      console.log('ready to navigate');
-      this.props.navigation.navigate('SignIn');
-    }, 2000)
+    AsyncStorage.getItem('token').then((token) => {
+      if (token){
+        this.props.navigation.navigate('App');
+      } else {
+        this.props.navigation.navigate('Auth')
+      }
+    })
   }
 
   render(){
