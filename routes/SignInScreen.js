@@ -3,9 +3,10 @@ import autoBind from 'react-autobind';
 import {Animated, View, Text, Image, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
 import {Video} from 'expo';
 import bkVideo from '../assets/bk3.mp4';
-import {login} from '../actions/login';
+import {loginToSite} from '../actions';
+import {connect} from 'react-redux';
 
-export default class SignInScreen extends Component{
+export class SignInScreen extends Component{
   constructor(props){
     super(props);
     this.state = {
@@ -22,7 +23,7 @@ export default class SignInScreen extends Component{
       password,
       account
     } = this.state;
-    login(account, userName, password).then(() => {
+    this.props.loginToSite(account, userName, password).then(() => {
       this.props.navigation.navigate('App');
     }).catch((error) => {
     });
@@ -78,3 +79,5 @@ export default class SignInScreen extends Component{
     </View>);
   }
 }
+
+export default connect(null, {loginToSite})(SignInScreen);

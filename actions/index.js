@@ -1,5 +1,6 @@
 import {serviceApi} from '../assets/utils';
 import * as types from './consts';
+import {login} from './login';
 
 const NET_STORAGE_SERVER_END_POINT = '/common/schoolNetDisk/';
 
@@ -10,6 +11,17 @@ export const showLoadingGif = () => ({
 export const closeLoadingGif = () => ({
   type: types.CLOSE_LOADING_GIF
 });
+
+export const loginToSite = (...args) => (dispatch) => {
+  dispatch(showLoadingGif());
+  return login(...args).then(() => {
+    dispatch(closeLoadingGif());
+    return Promise.resolve();
+  }).catch((error) => {
+    dispatch(closeLoadingGif());
+    return Promise.reject();
+  })
+}
 
 export const getSchoolIconUrl = () => (dispatch) => {
   dispatch({type: types.GET_SCHOOL_ICON_REQUEST});
