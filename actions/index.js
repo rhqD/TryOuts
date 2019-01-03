@@ -50,10 +50,30 @@ export const getUserProfile = () => (dispatch) => {
   return serviceApi('/common/userProfile/GetUserProfile').then((json) => {
     dispatch(closeLoadingGif());
     dispatch({type: types.APP_USER_PROFILE_SUCCESS, data: json});
-    return Promise.resolve(data);
-  }).catch(() => {
+    return Promise.resolve(json);
+  }).catch((error) => {
     dispatch(closeLoadingGif());
     dispatch({type: types.APP_USER_PROFILE_FAILURE});
+    return Promise.reject(error);
+  });
+}
+
+export const goBackToDirectory = () => (dispatch) => {
+  dispatch({type: types.GO_BACK_TO_DIRECTORY});
+}
+
+export const goToDirectory = (id) => (dispatch) => {
+  dispatch({type: types.GO_TO_DIRECTORY, id});
+}
+
+export const getFiles = (folderId) => (dispatch) => {
+  dispatch({type: types.GET_FILES_REQUEST, folderId});
+  return serviceApi(`${NET_STORAGE_SERVER_END_POINT}GetFiles?folderId=${folderId}&view=${1}&myFolderMode=${false}`).then((res) => {
+    const data = res.result.files;
+    dispatch({type: types.GET_FILES_SUCCESS, data, folderId});
+    return Promise.resolve(data);
+  }).catch((error) => {
+    dispatch({type: types.GET_FILES_FAILURE, folderId});
     return Promise.reject(error);
   });
 }
