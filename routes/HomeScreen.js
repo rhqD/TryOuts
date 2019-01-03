@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import * as actionCreators from '../actions';
 import StoragePage from './StoragePage';
 import Drawer from './Drawer';
+import autoBind from 'react-autobind';
 import homeIcon from '../assets/home2.png';
 
 const AppNavi = createBottomTabNavigator({
@@ -27,7 +28,7 @@ export class HomeScreen extends Component{
 
   constructor(props){
     super(props);
-    this.handleLogout = this.handleLogout.bind();
+    autoBind(this);
   }
 
   componentDidMount(){

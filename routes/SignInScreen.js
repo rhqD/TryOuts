@@ -23,10 +23,8 @@ export default class SignInScreen extends Component{
       account
     } = this.state;
     login(account, userName, password).then(() => {
-      debugger
-      this.props.navigation.navigate('Home');
+      this.props.navigation.navigate('App');
     }).catch((error) => {
-      debugger
     });
   }
 

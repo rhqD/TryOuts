@@ -10,18 +10,16 @@ export class Drawer extends Component{
     super(props);
     this.handleLogoutAsync = this.handleLogoutAsync.bind(this);
   }
+
   async handleLogoutAsync(){
     await logoutAsync();
     this.props.onLogout();
   }
 
   render(){
-    const {schoolIcon: {fetchingStatus, url}, user} = this.props;
+    const {schoolIcon: {fetchingStatus, url}, user, onLogout} = this.props;
     const userName = _.get(user, 'userName', '');
     const accountName = _.get(user, 'accountName', '');
-    console.log('**********************************');
-    console.log(this.props.onLogout);
-    console.log('**********************************');
     return (<View style={{flex: 1}}>
       <View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: '#123a5c', paddingLeft: 20, paddingTop: 40, paddingBottom: 10}}>
         <Image
