@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Image, Text, DrawerLayoutAndroid} from 'react-native';
+import {View, Image, Text, DrawerLayoutAndroid, PermissionsAndroid } from 'react-native';
 import { createBottomTabNavigator } from "react-navigation";
 import {connect} from 'react-redux';
 import * as actionCreators from '../actions';
@@ -7,6 +7,7 @@ import StoragePage from './StoragePage';
 import Drawer from './Drawer';
 import autoBind from 'react-autobind';
 import homeIcon from '../assets/home2.png';
+import {Permissions} from 'expo';
 
 const AppNavi = createBottomTabNavigator({
   storage: {
@@ -32,6 +33,8 @@ export class HomeScreen extends Component{
   }
 
   componentDidMount(){
+    Permissions.getAsync(Permissions.WRITE_EXTERNAL_STORAGE);
+    Permissions.getAsync(Permissions.READ_EXTERNAL_STORAGE);
     this.props.getSchoolIconUrl();
     this.props.getUserProfile();
   }

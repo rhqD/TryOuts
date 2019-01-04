@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, Image, TouchableOpacity, BackHandler, ScrollView} from 'react-native';
+import {View, Text, Image, TouchableOpacity, BackHandler, ScrollView, Linking} from 'react-native';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../actions';
 import Folder from '../../components/Folder';
@@ -8,6 +8,7 @@ import autoBind from 'react-autobind';
 import _ from 'lodash';
 import Header from './Header';
 import loadingGif from '../../assets/loading.gif';
+// import RNFetchBlob from 'rn-fetch-blob';
 
 export class StoragePage extends Component{
   constructor(props){
@@ -40,6 +41,17 @@ export class StoragePage extends Component{
     this.props.goToDirectory(id);
   }
 
+  handleDownloadFile(id, name){
+    this.props.getFileDownloadLink(id).then((url) => {
+      Linking.openURL(url);
+      // RNFetchBlob.config({
+      //   path : RNFetchBlob.fs.dirs.DocumentDir + '/' + name
+      // }).fetch('GET', url).then((res) => {
+      //   console.log('The file saved to ', res.path());
+      // })
+    });
+  }
+
   handleBackPress(e){
     if (this.props.stack.length > 1){
       this.props.goBackToDirectory();
@@ -69,6 +81,7 @@ export class StoragePage extends Component{
         />))}
         {files.map((fileMeta) => (<File
           key={fileMeta.id}
+          onDownloadFile={this.handleDownloadFile}
           meta={fileMeta}
         />))}
       </ScrollView>

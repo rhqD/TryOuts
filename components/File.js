@@ -61,8 +61,8 @@ export default class File extends Component{
     autoBind(this);
   }
 
-  handlePress(){
-    this.props.onGoToDirectory(this.props.meta.id);
+  handlePressFile(){
+    this.props.onDownloadFile(this.props.meta.id, this.props.meta.name);
   }
 
   render(){
@@ -72,6 +72,7 @@ export default class File extends Component{
     return (<TouchableOpacity
       activeOpacity={0.6}
       style={{height: 60, paddingLeft: 20, paddingRight: 20, flexDirection: 'row', alignItems: 'center', borderBottomWidth: 0.5, borderBottomColor: '#ddd'}}
+      onPress={this.handlePressFile}
     >
       <Image
         resizeMode="contain"

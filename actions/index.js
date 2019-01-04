@@ -1,5 +1,6 @@
 import {serviceApi} from '../assets/utils';
 import * as types from './consts';
+import _ from 'lodash';
 import {login} from './login';
 
 const NET_STORAGE_SERVER_END_POINT = '/common/schoolNetDisk/';
@@ -89,3 +90,19 @@ export const getFiles = (folderId) => (dispatch) => {
     return Promise.reject(error);
   });
 }
+
+//获取文件的下载链接
+export const getFileDownloadLink = (fileId) => (dispatch) => {
+  dispatch(showLoadingGif());
+  return serviceApi(`${NET_STORAGE_SERVER_END_POINT}GetFileDownloadUrl?fileId=${fileId}`).then((data) => {
+    dispatch(closeLoadingGif());
+    const url = data.result.url;
+    if (_.isEmpty(url)){
+      return Promise.reject();
+    }
+    return Promise.resolve(url);
+  }).catch((error) => {
+    dispatch(closeLoadingGif());
+    return Promise.reject(error);
+  });
+};
